@@ -264,11 +264,13 @@ struct scsi_host_template rtsx_host_template = {
 	
 	.max_sectors =                  240,
 
+#if LINUX_VERSION_CODE < KERNEL_VERSION(5,0,0)
 	/* merge commands... this seems to help performance, but
 	 * periodically someone should test to see which setting is more
 	 * optimal.
 	 */
 	.use_clustering =		1,
+#endif
 
 	
 	.emulated =			1,

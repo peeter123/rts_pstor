@@ -1,6 +1,6 @@
 # Driver for Realtek PCI-Express card reader
 #
-# Copyright(c) 2009 Realtek Semiconductor Corp. All rights reserved.  
+# Copyright(c) 2009 Realtek Semiconductor Corp. All rights reserved.
 #
 # This program is free software; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by the
@@ -36,13 +36,12 @@ $(TARGET_MODULE)-objs := rtsx.o rtsx_chip.o rtsx_transport.o rtsx_scsi.o rtsx_ca
 			 general.o sd.o xd.o ms.o spi.o
 
 default:
-	make -j `nproc` -C /lib/modules/$(KVERSION)/build/ SUBDIRS=$(PWD) modules
+	make -j `nproc` -C /lib/modules/$(KVERSION)/build/ KBUILD_EXTMOD=$(PWD) modules
 debug:
-	make -j `nproc` -C /lib/modules/$(KVERSION)/build/ SUBDIRS=$(PWD) modules EXTRA_CFLAGS="$(EXTRA_CFLAGS) -DRTSX_IS_DEBUG"
+	make -j `nproc` -C /lib/modules/$(KVERSION)/build/ KBUILD_EXTMOD=$(PWD) modules EXTRA_CFLAGS="$(EXTRA_CFLAGS) -DRTSX_IS_DEBUG"
 install:
+	mkdir -p /lib/modules/$(KVERSION)/kernel/drivers/scsi
 	cp $(TARGET_MODULE).ko /lib/modules/$(KVERSION)/kernel/drivers/scsi -f
 clean:
 	rm -f *.o *.ko
 	rm -f $(TARGET_MODULE).mod.c
-
-
